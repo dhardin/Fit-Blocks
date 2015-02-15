@@ -1,0 +1,69 @@
+#logo{
+	height: 15px;
+}
+
+.row {
+	max-width: 100% !important;
+}
+
+.cta-button .button {
+	width: 100% !important;
+}
+
+.hub-img {
+	display: block;
+	height: 70%;
+	 margin-left: auto;
+    margin-right: auto;
+}
+
+.hub-button {
+	height: 20em;
+
+}
+
+.hub-button .panel {
+	height: 100%;
+}
+
+.hub-button .header {
+	text-align: center;
+}
+
+.goal-days {
+	display: none;
+}
+
+.num-training-days, .training-intensity, #daySelect, #intensitySelect {
+	width: 100% !important;
+}
+
+#daySelect, #intensitySelect {
+	max-width: 90%;
+}
+.training-days {
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+.training-days .columns {
+	float: left !important;
+
+}
+.training-days div {
+	text-align: center;
+}
+.training-days div .label {
+	width: 100% !important;
+}
+.training-days .alert-box {
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}
+.day-num {
+	font-weight: bold;
+}
+
+.alert-box.intensity.off-day {
+	visibility: hidden;
+}

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta charset="utf-8" />
+    <title>Fitness Routine Creator</title>
+    <!-- Third Party Style Sheets -->
+    <link rel="stylesheet" type="text/css" href="lib/foundation/css/foundation.css">
+    <!-- Our Style Sheets -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Third Party JavaScript -->
+    <script src="lib/jquery.js"></script>
+    <script type="text/javascript" src="lib/underscore.js"></script>
+    <script type="text/javascript" src="lib/backbone.js"></script>
+    <script type="text/javascript" src="lib/foundation/js/foundation.min.js"></script>
+    <script type="text/javascript" src="lib/foundation/js/vendor/modernizr.js"></script>
+</head>
+
+<body>
+    <div class="contain-to-grid sticky">
+        <nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="#"><img id="logo" alt="Brand" src="img/dumbbell.png"> Fitness Routine Creator</a></h1>
+                </li>
+                <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+                <li class="toggle-topbar menu-icon"><a><span>Menu</span></a>
+                </li>
+            </ul>
+
+            <section class="top-bar-section">
+                <!-- Right Nav Section -->
+                <ul class="right">
+                    <li class="has-dropdown">
+                        <a>Tools</a>
+                        <ul class="dropdown">
+                            <li><a href="#routines">Routine</a>
+                            </li>
+                            <li><a href="#metrics">Metrics</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </nav>
+    </div>
+
+    <ul class="breadcrumbs">
+        <li class="home"><a class="current" href="#">Home</a>
+        </li>
+    </ul>
+
+    <div id="main"></div>
+
+    <!-- TEMPLATES -->
+    <script type="text/template" id="home-template">
+        <div class="row">
+            <div class="small-12 medium-12 large-4 columns hub-button">
+                <a href="#workout">
+                    <div class="panel">
+                        <h2 class="header">Workout</h2>
+                        <img class="hub-img" src="img/workout.png" />
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    </div>
+                </a>
+            </div>
+            <div class="small-12 medium-12 large-4 columns hub-button">
+                <a href="#metrics">
+                    <div class="panel">
+                        <h2 class="header">Metrics</h2>
+                        <img class="hub-img" src="img/metrics.png" />
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    </div>
+                </a>
+            </div>
+            <div class="small-12  medium-12 large-4 columns hub-button">
+                <a href="#routines">
+                    <div class="panel">
+                        <h2 class="header">Routines</h2>
+                        <img class="hub-img" src="img/routine.png" />
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="goal-select-template">
+        <div class="row">
+            <div class="medium-12 large-6 columns">
+                <button href="#" data-dropdown="daySelect" aria-controls="daySelect" aria-expanded="false" class="button dropdown num-training-days"># of Training Days</button>
+                <br>
+                <ul id="daySelect" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
+                    <li><a>4</a>
+                    </li>
+                    <li><a>5</a>
+                    </li>
+                    <li><a>6</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="medium-12 large-6 columns">
+                <button href="#" data-dropdown="intensitySelect" aria-controls="intensitySelect" aria-expanded="false" class="button dropdown training-intensity">Training Intensity</button>
+                <br>
+                <ul id="intensitySelect" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
+                    <li><a>1</a>
+                    </li>
+                    <li><a>2</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row training-days"></div>
+
+        <div class="goal-days">
+            <div class="small-12 medium-4 large-2 columns strength">
+                <div data-alert class="alert-box secondary">
+                    <div class="day-num"></div>
+                    <div class="alert-box success">
+                        Strength
+                    </div>
+                     <div class="alert-box intensity"></div>
+                </div>
+            </div>
+            <div class="small-12 medium-4 large-2 columns power">
+                <div data-alert class="alert-box secondary">
+                    <div class="day-num"></div>
+                    <div class="alert-box alert">
+                        Power
+                    </div>
+                    <div class="alert-box intensity"></div>
+                </div>
+            </div>
+            <div class="small-12 medium-4 large-2  columns hypertrophy">
+                <div data-alert class="alert-box secondary">
+                    <div class="day-num"></div>
+                    <div class="alert-box warning">
+                        Hypertrophy
+                    </div>
+                    <div class="alert-box intensity"></div>
+                </div>
+            </div>
+            <div class="small-12 medium-4 large-2 columns endurance">
+                <div data-alert class="alert-box secondary">
+                    <div class="day-num"></div>
+                    <div class="alert-box info">
+                        Endurance
+                    </div>
+                     <div class="alert-box intensity"></div>
+                </div>
+            </div>
+            <div class="small-12 medium-4 large-2 columns off">
+                <div data-alert class="alert-box secondary">
+                    <div class="day-num"></div>
+                    <div class="alert-box secondary">
+                        Off-Day
+                    </div>
+                     <div class="alert-box secondary intensity off-day show-for-medium-up">-</div>
+                </div>
+            </div>
+        </div>
+        <div class="row goal-select">
+            <div class="small-12 medium-6 large-3 columns">
+                <ul class="pricing-table">
+                    <li class="title">Goal</li>
+                    <li class="price">Strength</li>
+                    <li class="description">Increase the amount of weight you can lift.</li>
+                    <li class="bullet-item">85% 1 RM</li>
+                    <li class="bullet-item">5 Reps</li>
+                    <li class="bullet-item">5 Sets</li>
+                    <li class="bullet-item">2 Minute Rest</li>
+                    <li class="cta-button"><a class="button goal-select-btn" data-goal="strength">Select</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="small-12 medium-6 large-3 columns">
+                <ul class="pricing-table">
+                    <li class="title">Goal</li>
+                    <li class="price">Power</li>
+                    <li class="description">Increase the explosive power of your lifts.</li>
+                    <li class="bullet-item">50-75% 1 RM</li>
+                    <li class="bullet-item">3-6 Reps</li>
+                    <li class="bullet-item">10 Sets</li>
+                    <li class="bullet-item">1 Minute Rest</li>
+                    <li class="cta-button"><a class="button goal-select-btn" data-goal="power">Select</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="small-12 medium-6 large-3 columns">
+                <ul class="pricing-table">
+                    <li class="title">Goal</li>
+                    <li class="price">Hypertrophy</li>
+                    <li class="description">Increase your body mass.</li>
+                    <li class="bullet-item">70-80% 1 RM</li>
+                    <li class="bullet-item">8-12 Reps</li>
+                    <li class="bullet-item">5 Sets</li>
+                    <li class="bullet-item">45 Second Rest</li>
+                    <li class="cta-button"><a class="button goal-select-btn" data-goal="hypertrophy">Select</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="small-12 medium-6 large-3 columns">
+                <ul class="pricing-table">
+                    <li class="title">Goal</li>
+                    <li class="price">Endurance</li>
+                    <li class="description">Increase how long you can endure lifts.</li>
+                    <li class="bullet-item">50-70% 1 RM</li>
+                    <li class="bullet-item">15-25 Reps</li>
+                    <li class="bullet-item">5 Sets</li>
+                    <li class="bullet-item">1-2 Minute Rest for > 25 Reps | &lt; 1 Minute Rest for 10-15</li>
+                    <li class="cta-button"><a class="button goal-select-btn" data-goal="endurance">Select</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="fetch-template">
+        <div class="text-center library-message">
+            <p>Fetching data...</p>
+        </div>
+    </script>
+    <script type="text/template" id="error-template">
+        <div class="text-center">
+            <h1>Error</h1>
+            <h1 class="subheader">Sorry, but the requested page does not exist :(</h1>
+        </div>
+    </script>
+
+    <!-- Models -->
+    <!-- Views -->
+    <script src="js/views/home.js"></script>
+    <script src="js/views/goal-select.js"></script>
+    <script src="js/views/fetchingData.js"></script>
+    <script src="js/views/error.js"></script>
+    <script src="js/views/app.js"></script>
+    <!-- Application -->
+    <script src="js/data.js"></script>
+    <script src="js/utility.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+    <!-- Router -->
+    <script src="js/routes/routes.js"></script>
+    <script type="text/javascript">
+    $(document).foundation({});
+    </script>
+</body>
+
+</html>
