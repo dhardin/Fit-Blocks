@@ -4,9 +4,7 @@ app.GoalSelectView = Backbone.View.extend({
     template: _.template($('#goal-select-template').html()),
 
     events: {
-        'click #daySelect a': 'selectNumTrainingDays',
-        'click #intensitySelect a': 'selectIntensity',
-        'click .goal-select .goal-select-btn': 'selectGoal'
+        'click .month' :'selectMonth'
     },
 
     initialize: function(options) {
@@ -19,12 +17,16 @@ app.GoalSelectView = Backbone.View.extend({
         this.$goal_days = this.$('.goal-days');
         this.$daySelectBtn = this.$('.num-training-days');
         this.$intensitySelectBtn = this.$('.training-intensity');
+        this.$goal_modal = this.$('#goal-modal');
+        this.$currentMonth = null;
+        this.$next_btn = this.$('.button.next');
         this.intensity_select_btn_text = this.$intensitySelectBtn.text();
         this.day_select_btn_text = this.$daySelectBtn.text();
         this.goal = '';
         this.intensity = 1;
         this.numTrainingDays = 3;
         this.training_days = [];
+        this.monthly_goals = {};
         this.training_days_options = {
             three_1: ['medium', 'off', 'high', 'off', 'low', 'off', 'off'],
             three_2: ['high', 'off', 'high', 'off', 'low', 'off', 'off'],
@@ -35,6 +37,11 @@ app.GoalSelectView = Backbone.View.extend({
             six_1: ['high', 'high', 'medium', 'high', 'high', 'low', 'off']
         };
 
+        (function(that){
+	        that.$goal_modal.find('.goal-select-btn').on('click', function(e){
+	        	that.selectGoal(e, that);
+	        });
+    	})(this);
         return this;
     },
 
@@ -50,9 +57,40 @@ app.GoalSelectView = Backbone.View.extend({
         this.renderTrainingDays();
     },
 
-    selectGoal: function(e) {
-        this.goal = $(e.currentTarget).attr('data-goal');
-        this.renderTrainingDays();
+    selectGoal: function(e, that) {
+        that.goal = $(e.currentTarget).attr('data-goal');
+        that.$goal_modal.foundation('reveal','close');
+        that.addGoalToCurrentMonth();
+    },
+
+    selectMonth: function(e){
+    	if(this.$currentMonth != null){
+    		this.$currentMonth.removeClass('callout');
+    	}
+    	this.$currentMonth = $(e.currentTarget);
+    	this.$currentMonth.addClass('callout');
+    	        this.$goal_modal.show();
+    	this.$goal_modal.foundation('reveal','open');
+    },
+
+    addGoalToCurrentMonth: function (e) {
+    	var goal_label_class_map = {
+            	strength: 'alert',
+            	power: 'warning',
+            	hypertrophy: 'success',
+            	endurance: 'info'
+            };
+    	this.$currentMonth.find('.goal')
+							    	.text(this.goal)
+							    	.addClass(goal_label_class_map[this.goal]);
+		this.monthly_goals[this.$currentMonth.find('.name').text()] = this.goal;
+
+		//see if we can enable the next button by checking the length of monthly goals
+		if(Object.keys(this.monthly_goals).length == 12){
+			this.$next_btn.removeClass('disabled')
+						  .parent()
+						  .removeAttr('data-tooltip');
+		}
     },
 
     renderTrainingDays: function() {

@@ -6,7 +6,7 @@
 	max-width: 100% !important;
 }
 
-.cta-button .button {
+.cta-button .button, .button.next{
 	width: 100% !important;
 }
 
@@ -24,10 +24,6 @@
 
 .hub-button .panel {
 	height: 100%;
-}
-
-.hub-button .header {
-	text-align: center;
 }
 
 .goal-days {
@@ -50,8 +46,8 @@
 	float: left !important;
 
 }
-.training-days div {
-	text-align: center;
+.header, .training-days div, .intensity-tools, .month  {
+	text-align: center !important;
 }
 .training-days div .label {
 	width: 100% !important;
@@ -66,4 +62,25 @@
 
 .alert-box.intensity.off-day {
 	visibility: hidden;
+}
+
+.intensity-tools {
+	font-size: 1.5em;
+}
+
+.intensity-tools .increase, .intensity-tools .decrease {
+	font-size: 2em;
+	padding: 0 3rem 0 3rem;
+}
+
+.month {
+	font-weight: bold;
+}
+
+.month .goal {
+	font-variant: small-caps;
+}
+
+#goal-modal {
+	display: none;
 }
