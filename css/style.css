@@ -1,5 +1,6 @@
 #logo{
-	height: 15px;
+	height: 20px;
+	margin-top: -5px;
 }
 
 .row {
@@ -46,7 +47,7 @@
 	float: left !important;
 
 }
-.header, .training-days div, .intensity-tools, .month  {
+.header, .training-days div, .intensity-tools, .block  {
 	text-align: center !important;
 }
 .training-days div .label {
@@ -73,14 +74,52 @@
 	padding: 0 3rem 0 3rem;
 }
 
-.month {
+.block {
+	cursor: pointer;
 	font-weight: bold;
 }
 
-.month .goal {
+.block .goal {
 	font-variant: small-caps;
 }
 
-#goal-modal {
+.button.next .tip {
+	color: #fff;
+}
+
+.block .close {
+	font-size: 2em;
+}
+
+.hidden{
+	visibility: hidden;
+}
+
+.done-intensity-btn, .intensity-tools, .exercise-placeholder {
 	display: none;
+}
+
+.button {
+	  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.capitalize {
+	  text-transform: capitalize;
+}
+
+.prevDay, .nextDay {
+	font-size: 2em;
+	font-weight: bold;
+	  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 }

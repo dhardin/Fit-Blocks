@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta charset="utf-8" />
-    <title>Fitness Routine Creator</title>
+    <title>Fitness Blocks</title>
     <!-- Third Party Style Sheets -->
     <link rel="stylesheet" type="text/css" href="lib/foundation/css/foundation.css">
     <!-- Our Style Sheets -->
@@ -22,7 +22,7 @@
         <nav class="top-bar" data-topbar role="navigation">
             <ul class="title-area">
                 <li class="name">
-                    <h1><a href="#"><img id="logo" alt="Brand" src="img/dumbbell.png"> Fitness Routine Creator</a></h1>
+                    <h1><a href="#"><img id="logo" alt="Brand" src="img/block.png"> Fitness Blocks</a></h1>
                 </li>
                 <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
                 <li class="toggle-topbar menu-icon"><a><span>Menu</span></a>
@@ -35,9 +35,9 @@
                     <li class="has-dropdown">
                         <a>Tools</a>
                         <ul class="dropdown">
-                            <li><a href="#routines">Routine</a>
+                            <li><a href="#routines/">Routine</a>
                             </li>
-                            <li><a href="#metrics">Metrics</a>
+                            <li><a href="#metrics/">Metrics</a>
                             </li>
                         </ul>
                     </li>
@@ -57,119 +57,62 @@
     <script type="text/template" id="home-template">
         <div class="row">
             <div class="small-12 medium-12 large-4 columns hub-button">
-                <a href="#workout">
+                <a href="#workout/">
                     <div class="panel">
                         <h2 class="header">Workout</h2>
                         <img class="hub-img" src="img/workout.png" />
-                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
                     </div>
                 </a>
             </div>
             <div class="small-12 medium-12 large-4 columns hub-button">
-                <a href="#metrics">
+                <a href="#metrics/">
                     <div class="panel">
                         <h2 class="header">Metrics</h2>
                         <img class="hub-img" src="img/metrics.png" />
-                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
                     </div>
                 </a>
             </div>
             <div class="small-12  medium-12 large-4 columns hub-button">
-                <a href="#routines">
+                <a href="#routines/">
                     <div class="panel">
-                        <h2 class="header">Routines</h2>
+                        <h2 class="header">Goals</h2>
                         <img class="hub-img" src="img/routine.png" />
-                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
                     </div>
                 </a>
             </div>
         </div>
     </script>
+    <script type="text/template" id="block-collection-template">
+    </script>
 
-    <script type="text/template" id="goal-select-template">
-        <h3 class="header">First, let's select your goals for each training month below.</h3>
-        <h5 class="subheader header">Tip: <kbd>Left Click</kbd> on the month you want to set a goal for.</h5>
-        <div class="row months">
-            <div class="small-4 medium-6 large-2 columns">
-                <div class="panel month">
-                    <span class="name">January</span>
-                    <div>Goal: <span class="label goal">N/A</span>
+    <script type="text/template" id="week-collection-template"></script>
+
+    <script type="text/template" id="day-collection-template"></script>
+
+    <script type="text/template" id="block-template">
+        <div class="small-12 medium-6 large-2 columns">
+            <div class="panel block">
+                <span class="success label left hidden complete">Complete</span>
+                <a class="close right">&times;</a> Block
+                <%=id%>
+                    <div>
+                        Goal: <span class="label goal"><%=goal%></span>
                     </div>
-                </div>
-            </div>
-            <div class="small-4 medium-6 large-2 columns">
-                <div class="panel month"><span class="name">February</span>
-                    <div>Goal: <span class="label goal">N/A</span>
-                    </div>
-                </div>
-            </div>
-            <div class="small-4 medium-6 large-2 columns">
-                <div class="panel month"><span class="name">March</span>
-                    <div>Goal: <span class="label goal">N/A</span>
-                    </div>
-                </div>
-            </div>
-            <div class="small-4 medium-6 large-2 columns">
-                <div class="panel month"><span class="name">April</span>
-                    <div>Goal: <span class="label goal">N/A</span>
-                    </div>
-                </div>
-            </div>
-            <div class="small-4 medium-6 large-2 columns">
-                <div class="panel month"><span class="name">May</span>
-                    <div>Goal: <span class="label goal">N/A</span>
-                    </div>
-                </div>
-            </div>
-            <div class="small-4 medium-6 large-2 columns">
-                <div class="panel month"><span class="name">June</span>
-                    <div>Goal: <span class="label goal">N/A</span>
-                    </div>
-                </div>
-            </div>
-            <div class="small-4 medium-6 large-2 columns">
-                <div class="panel month"><span class="name">July</span>
-                    <div>Goal: <span class="label goal">N/A</span>
-                    </div>
-                </div>
-            </div>
-            <div class="small-4 medium-6 large-2 columns">
-                <div class="panel month"><span class="name">August</span>
-                    <div>Goal: <span class="label goal">N/A</span>
-                    </div>
-                </div>
-            </div>
-            <div class="small-4 medium-6 large-2 columns">
-                <div class="panel month"><span class="name">September</span>
-                    <div>Goal: <span class="label goal">N/A</span>
-                    </div>
-                </div>
-            </div>
-            <div class="small-4 medium-6 large-2 columns">
-                <div class="panel month"><span class="name">October</span>
-                    <div>Goal: <span class="label goal">N/A</span>
-                    </div>
-                </div>
-            </div>
-            <div class="small-4 medium-6 large-2 columns">
-                <div class="panel month"><span class="name">November</span>
-                    <div>Goal: <span class="label goal">N/A</span>
-                    </div>
-                </div>
-            </div>
-            <div class="small-4 medium-6 large-2 columns">
-                <div class="panel month"><span class="name">December</span>
-                    <div>Goal: <span class="label goal">N/A</span>
-                    </div>
-                </div>
             </div>
         </div>
-        <span data-tooltip aria-haspopup="true" class="has-tip" title="Please finish selecting your goals for the year."><a class="button disabled next">Next</a></span>
-        
+    </script>
 
-        <div id="goal-modal" class="row goal-select reveal-modal"  data-reveal>
-        	<a class="close-reveal-modal">&#215;</a>
-        	<br/>
+    <script type="text/template" id="goal-select-template">
+        <h3 class="header">First, let's select your goals for each training block below.</h3>
+        <h5 class="subheader header">Tip: <kbd>Click</kbd> on the block you want to set a goal for.</h5>
+        <a class="button expand add">+ Add Block</a>
+        <div class="blocks"></div>
+        <a href="#" class="button expand">Finish</a>
+
+
+        <div id="goal-modal" class="row goal-select reveal-modal" data-reveal>
+            <a class="close-reveal-modal">&#215;</a>
+            <br/>
             <div class="small-12 medium-6 large-3 columns">
                 <ul class="pricing-table">
                     <li class="title">Goal</li>
@@ -224,69 +167,72 @@
             </div>
         </div>
     </script>
-    <script type="text/tempate" id="training-week-schedule-template">
-        <div class="row">
-            <div class="small-12 columns intensity-tools">
-                <a class="button decrease">&laquo;</a>
-                <span id="intensity-output"></span>
-                <a class="button increase">&raquo;</a>
-            </div>
-            <div class="range-slider small-12 columns" data-slider data-options="start: 1; end: 8; display_selector: #intensity-output;">
-                <span class="range-slider-handle" role="slider" tabindex="0"></span>
-                <span class="range-slider-active-segment"></span>
-                <input type="hidden">
-            </div>
-
+    <script type="text/template" id="day-template">
+        <div class="small-12 medium-6 large-2 columns">
+            <ul class="pricing-table">
+                <li class="title">Day
+                    <%=id%>
+                </li>
+                <li class="price">
+                    <%=goal%>
+                </li>
+                <li class="description">
+                    <%=one_rep_max%><br/>
+                    Reps: <%=reps%><br/> 
+                    Sets: <%=sets%><br/>
+                    Rest: <%=rest%><br/>
+                </li>
+                <li class="bullet-item">
+                   Intensity: <span class="intensity capitalize label"><%=intensity%></span>
+                </li>
+                <li class="cta-button"><a class="button select-btn" href="#workout/block/<%=blockId%>/week/<%=weekId%>/day/<%=id%>">Select</a>
+                </li>
+            </ul>
         </div>
-        <div class="row training-days"></div>
-
-        <div class="goal-days">
-            <div class="small-12 medium-4 large-2 columns strength">
-                <div data-alert class="alert-box secondary">
-                    <div class="day-num"></div>
-                    <div class="alert-box success">
-                        Strength
-                    </div>
-                    <div class="alert-box intensity"></div>
-                </div>
-            </div>
-            <div class="small-12 medium-4 large-2 columns power">
-                <div data-alert class="alert-box secondary">
-                    <div class="day-num"></div>
-                    <div class="alert-box alert">
-                        Power
-                    </div>
-                    <div class="alert-box intensity"></div>
-                </div>
-            </div>
-            <div class="small-12 medium-4 large-2  columns hypertrophy">
-                <div data-alert class="alert-box secondary">
-                    <div class="day-num"></div>
-                    <div class="alert-box warning">
-                        Hypertrophy
-                    </div>
-                    <div class="alert-box intensity"></div>
-                </div>
-            </div>
-            <div class="small-12 medium-4 large-2 columns endurance">
-                <div data-alert class="alert-box secondary">
-                    <div class="day-num"></div>
-                    <div class="alert-box info">
-                        Endurance
-                    </div>
-                    <div class="alert-box intensity"></div>
-                </div>
-            </div>
-            <div class="small-12 medium-4 large-2 columns off">
-                <div data-alert class="alert-box secondary">
-                    <div class="day-num"></div>
-                    <div class="alert-box secondary">
-                        Off-Day
-                    </div>
-                    <div class="alert-box secondary intensity off-day show-for-medium-up">-</div>
-                </div>
-            </div>
+    </script>
+    <script type="text/template" id="day-workout-template">
+         <div class="panel">
+            <ul class="pricing-table">
+                <li class="title"><a class="prevDay">&laquo;--- </a> Day
+                    <%=id%> <a class="nextDay"> ---&raquo;</a>
+                </li>
+                <li class="price">
+                    <%=goal%>
+                </li>
+                <li class="description">
+                    <%=description%>
+                </li>
+                <li class="bullet-item">
+                   Intensity: <span class="intensity capitalize label"><%=intensity%></span>
+                </li>
+                <li class="bullet-item">
+                   EXERCISES
+                </li>
+                <li class="exercise bullet-item"></li>
+                <li class="cta-button"><a class="button edit">Edit</a>
+                </li>
+            </ul>
         </div>
+    </script>
+    <script type="text/template" id="routine-template">
+        <div class="blocks"></div>
+    </script>
+    <script type="text/template" id="week-template">
+        <a class="button change-intensity-btn">Change Intesity</a>
+        <a class="button done-intensity-btn">Done Editing</a>
+        <div class="row intensity-tools">
+                <div class="small-12 columns">
+                    <a class="button decrease">&laquo;</a>
+                    <span><%=intensity%></span>
+                    <a class="button increase">&raquo;</a>
+                </div>
+        </div>
+        <h3>Week <%=id%></h3>
+        <div class="days"></div>
+    </script>
+
+    <script type="text/template" id="block-display-template">
+        <div class="weeks"></div>
     </script>
     <script type="text/template" id="fetch-template">
         <div class="text-center library-message">
@@ -301,9 +247,25 @@
     </script>
 
     <!-- Models -->
+    <script src="js/models/block.js"></script>
+    <script src="js/models/week.js"></script>
+    <script src="js/models/day.js"></script>
+    <script src="js/models/exercise.js"></script>
+    <script src="js/models/exerciseCollection.js"></script>
+    <script src="js/models/dayCollection.js"></script>
+    <script src="js/models/weekCollection.js"></script>
+    <script src="js/models/blockCollection.js"></script>
     <!-- Views -->
     <script src="js/views/home.js"></script>
     <script src="js/views/goal-select.js"></script>
+    <script src="js/views/blocks.js"></script>
+    <script src="js/views/block.js"></script>
+    <script src="js/views/blockDisplay.js"></script>
+    <script src="js/views/routine.js"></script>
+    <script src="js/views/week.js"></script>
+    <script src="js/views/weeks.js"></script>
+    <script src="js/views/day.js"></script>
+    <script src="js/views/day-workout.js"></script>
     <script src="js/views/fetchingData.js"></script>
     <script src="js/views/error.js"></script>
     <script src="js/views/app.js"></script>
