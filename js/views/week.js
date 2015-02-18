@@ -30,6 +30,7 @@ app.WeekView = Backbone.View.extend({
         this.$done_intensity_btn = this.$('.done-intensity-btn');
         this.$intensity_slider = this.$('.slider');
         this.$data_slider = this.$('[data-slider]');
+        this.$days = this.$('.days');
         this.training_days_arr = [
             ['medium', 'off', 'high', 'off', 'low', 'off', 'off'],
             ['high', 'off', 'high', 'off', 'low', 'off', 'off'],
@@ -56,7 +57,7 @@ app.WeekView = Backbone.View.extend({
         var dayView = new app.DayView({
             model: item
         });
-        this.$el.append(dayView.render().el);
+        this.$days.append(dayView.render().el);
     },
 
     showIntensity: function(e) {
