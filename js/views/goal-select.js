@@ -36,7 +36,7 @@ app.GoalSelectView = Backbone.View.extend({
             ['high', 'high', 'medium', 'high', 'high', 'low', 'off']
         ];
 
-        //initialize events that occur in m
+        //initialize events that occur in modal
         (function(that) {
             that.$goal_modal.find('.goal-select-btn').on('click', function(e) {
                 that.selectGoal(e, that);

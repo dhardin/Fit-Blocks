@@ -176,31 +176,63 @@
                 <li class="price">
                     <%=goal%>
                 </li>
-               
+
                 <li class="bullet-item">
-                   Intensity: <span class="intensity capitalize label"><%=intensity%></span>
+                    Intensity: <span class="intensity capitalize label"><%=intensity%></span>
                 </li>
-                 <li class="description">
-                    <%=one_rep_max%><br/>
-                    Reps: <%=reps%><br/> 
-                    Sets: <%=sets%><br/>
-                    Rest: <%=rest%><br/>
+                <li class="description">
+                    <%=one_rep_max%>
+                        <br/> Reps:
+                        <%=reps%>
+                            <br/> Sets:
+                            <%=sets%>
+                                <br/> Rest:
+                                <%=rest%>
+                                    <br/>
                 </li>
                 <li class="cta-button"><a class="button select-btn expand" href="#workout/block/<%=blockId%>/week/<%=weekId%>/day/<%=id%>">Select</a>
                 </li>
             </ul>
         </div>
     </script>
+
+    <script type="text/template" id="exercise-selection-template">
+        <div class="row">
+            <div class="large-12 columns">
+                <input type="text" placeholder="Search" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="exercises large-12 columns"></div>
+        </div>
+    </script>
+
+    <script type="text/template" id="exercise-list-item-template">
+        <ul class="pricing-table">
+            <li class="title">
+                <%=name%>
+            </li>
+            <li class="description">
+                <%=muscles%>
+            </li>
+        </ul>
+    </script>
+
     <script type="text/template" id="exercise-template">
         <div class="panel callout radius">
             <ul>
-                <li><%=name%></li>
-                <li><%=rest%></li>
+                <li>
+                    <%=name%>
+                </li>
+                <li>
+                    <%=rest%>
+                </li>
             </ul>
         </div>
     </script>
+
     <script type="text/template" id="day-workout-template">
-         <div class="panel">
+        <div class="panel">
             <ul class="pricing-table">
                 <li class="title"><a class="prevDay">&laquo;--- </a> Day
                     <%=id%> <a class="nextDay"> ---&raquo;</a>
@@ -209,23 +241,31 @@
                     <%=goal%>
                 </li>
                 <li class="bullet-item">
-                   Intensity: <span class="intensity capitalize label"><%=intensity%></span>
+                    Intensity: <span class="intensity capitalize label"><%=intensity%></span>
                 </li>
-                  <li class="description">
-                    <%=one_rep_max%><br/>
-                    Reps: <%=reps%><br/> 
-                    Sets: <%=sets%><br/>
-                    Rest: <%=rest%><br/>
+                <li class="description">
+                    <%=one_rep_max%>
+                        <br/> Reps:
+                        <%=reps%>
+                            <br/> Sets:
+                            <%=sets%>
+                                <br/> Rest:
+                                <%=rest%>
+                                    <br/>
                 </li>
                 <li class="exercise bullet-item"></li>
                 <li class="bullet-item add-exercise">
-                    <div class="panel callout radius">
-                       <a class="add"><span class="addSymbol">+</span> Add Exercise</a>
+                    <div class="add panel callout radius">
+                        <a><span class="addSymbol">+</span> Add Exercise</a>
                     </div>
                 </li>
                 <li class="cta-button"><a class="button edit expand">Edit</a><a class="button done expand hide">Done</a>
                 </li>
             </ul>
+        </div>
+        <div class="exercise-modal" class="reveal-modal" data-reveal>
+            <div class="exercise-list"></div>
+            <a class="close-reveal-modal">&#215;</a>
         </div>
     </script>
     <script type="text/template" id="routine-template">
@@ -235,11 +275,11 @@
         <a class="button change-intensity-btn">Change Intesity</a>
         <a class="button done-intensity-btn">Done Editing</a>
         <div class="row intensity-tools">
-                <div class="small-12 columns">
-                    <a class="button decrease">&laquo;</a>
-                    <span><%=intensity%></span>
-                    <a class="button increase">&raquo;</a>
-                </div>
+            <div class="small-12 columns">
+                <a class="button decrease">&laquo;</a>
+                <span><%=intensity%></span>
+                <a class="button increase">&raquo;</a>
+            </div>
         </div>
         <h3>Week <%=id%></h3>
         <div class="days"></div>
@@ -280,6 +320,9 @@
     <script src="js/views/weeks.js"></script>
     <script src="js/views/day.js"></script>
     <script src="js/views/day-workout.js"></script>
+     <script src="js/views/exercise.js"></script>
+    <script src="js/views/exercises.js"></script>
+    <script src="js/views/exerciseListItem.js"></script>
     <script src="js/views/fetchingData.js"></script>
     <script src="js/views/error.js"></script>
     <script src="js/views/app.js"></script>

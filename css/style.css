@@ -122,6 +122,10 @@
  	font-weight: bold;
  }
 
+ .exercise-modal {
+ 	display: none;
+ }
+
 @media only screen and (min-width: 64.063em) {
 	.days .large-7-columns.columns{
 		width: 14.28571% !important;

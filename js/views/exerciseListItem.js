@@ -1,7 +1,7 @@
 var app = app || {};
 
-app.ExerciseView = Backbone.View.extend({
-    template: _.template($('#exercise-template').html()),
+app.ExerciseListItemView = Backbone.View.extend({
+    template: _.template($('#exercise-list-item-template').html()),
 
     events: {
     	'click .remove' : 'remove',

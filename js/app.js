@@ -4,9 +4,49 @@ app.dataLoadCallback = app.dataLoadCallback || [];
 app.testing = true;
 app.Collection = app.Collection || {};
 
+exercises = [
+	{
+		name: 'squat',
+		muscles: 'legs'
+	},
+	{
+		name: 'bench',
+		muscles: 'chest'
+	},
+	{
+		name: 'deadlift',
+		muscles: 'back, legs'
+	},
+	{
+		name: 'bent row',
+		muscles: 'back'
+	},
+	{
+		name: 'press',
+		muscles: 'shoulders, chest'
+	},
+	{
+		name: 'power press',
+		muscles: 'shoulders, chest'
+	}, 
+	{
+		name: 'pull-up',
+		muscles: 'lats'
+	},
+	{
+		name: 'dips',
+		muscles: 'triceps, chest'
+	},
+	{
+		name: 'clean',
+		muscles: 'back'
+	}
+];
+
 //populate test data
 app.getData = function() {
     app.BlockCollection = app.BlockCollection || new app.Collection.Blocks([]);
+    app.ExerciseCollection = app.ExerciseCollection || new app.Collection.Exercises(exercises);
 }
 
 //fetch data from server

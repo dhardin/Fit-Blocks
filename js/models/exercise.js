@@ -6,6 +6,7 @@ app.Exercise = Backbone.Model.extend({
           weight: [],
           reps: [],
           sets: [],
-          rest: 0
+          rest: 0,
+          muscles: ''
     }
 });

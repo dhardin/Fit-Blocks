@@ -26,12 +26,28 @@ app.DayWorkoutView = Backbone.View.extend({
         this.$prevDay = this.$('.prevDay');
         this.$editBtn = this.$('.edit');
         this.$doneBtn = this.$('.done');
+        this.$exercises = this.$('.exercise-list');
+        this.$exercise_modal = this.$('.exercise-modal');
         this.$addExercise = this.$('.add-exercise');
+        this.$add = this.$('.add');
         this.applyStyling();
 
+        //render day's exercises
         exercises.each(function(item) {
             this.renderItem(item);
         }, this);
+
+        this.exercisesView = new app.ExercisesView({
+            collection: app.ExerciseCollection,
+            el: this.$exercises[0],
+            itemView: app.ExerciseListItemView
+        });
+
+        this.$add.on('click', this.addExercise);
+
+
+
+        this.exercisesView.render();
 
         return this;
     },
@@ -43,15 +59,8 @@ app.DayWorkoutView = Backbone.View.extend({
         this.$el.append(exerciseView.render().el);
     },
 
-    addExercises: function() {
-        var exercises = this.model.get('exercises'),
-            $exercise_item;
-
-        exercises.each(function(model) {
-            $exercise_item = this.$exercise.clone();
-            $exercise_item.text(model.get('name'));
-            exercise_list.append($exercise_item);
-        });
+    addExercise: function() {
+        this.$exercise_modal.foundation('reveal', 'open');
     },
 
     removeExercise: function(){
