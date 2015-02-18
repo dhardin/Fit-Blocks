@@ -122,7 +122,7 @@
                     <li class="bullet-item">5 Reps</li>
                     <li class="bullet-item">5 Sets</li>
                     <li class="bullet-item">2 Minute Rest</li>
-                    <li class="cta-button"><a class="button goal-select-btn" data-goal="strength">Select</a>
+                    <li class="cta-button"><a class="button goal-select-btn expand" data-goal="strength">Select</a>
                     </li>
                 </ul>
             </div>
@@ -135,7 +135,7 @@
                     <li class="bullet-item">3-6 Reps</li>
                     <li class="bullet-item">10 Sets</li>
                     <li class="bullet-item">1 Minute Rest</li>
-                    <li class="cta-button"><a class="button goal-select-btn" data-goal="power">Select</a>
+                    <li class="cta-button"><a class="button goal-select-btn expand" data-goal="power">Select</a>
                     </li>
                 </ul>
             </div>
@@ -148,7 +148,7 @@
                     <li class="bullet-item">8-12 Reps</li>
                     <li class="bullet-item">5 Sets</li>
                     <li class="bullet-item">45 Second Rest</li>
-                    <li class="cta-button"><a class="button goal-select-btn" data-goal="hypertrophy">Select</a>
+                    <li class="cta-button"><a class="button goal-select-btn expand" data-goal="hypertrophy">Select</a>
                     </li>
                 </ul>
             </div>
@@ -161,14 +161,14 @@
                     <li class="bullet-item">15-25 Reps</li>
                     <li class="bullet-item">5 Sets</li>
                     <li class="bullet-item">1-2 Minute Rest for > 25 Reps | &lt; 1 Minute Rest for 10-15</li>
-                    <li class="cta-button"><a class="button goal-select-btn" data-goal="endurance">Select</a>
+                    <li class="cta-button"><a class="button goal-select-btn expand" data-goal="endurance">Select</a>
                     </li>
                 </ul>
             </div>
         </div>
     </script>
     <script type="text/template" id="day-template">
-        <div class="small-12 medium-6 large-2 columns">
+        <div class="small-12 medium-6 large-7-columns columns">
             <ul class="pricing-table">
                 <li class="title">Day
                     <%=id%>
@@ -176,17 +176,26 @@
                 <li class="price">
                     <%=goal%>
                 </li>
-                <li class="description">
+               
+                <li class="bullet-item">
+                   Intensity: <span class="intensity capitalize label"><%=intensity%></span>
+                </li>
+                 <li class="description">
                     <%=one_rep_max%><br/>
                     Reps: <%=reps%><br/> 
                     Sets: <%=sets%><br/>
                     Rest: <%=rest%><br/>
                 </li>
-                <li class="bullet-item">
-                   Intensity: <span class="intensity capitalize label"><%=intensity%></span>
+                <li class="cta-button"><a class="button select-btn expand" href="#workout/block/<%=blockId%>/week/<%=weekId%>/day/<%=id%>">Select</a>
                 </li>
-                <li class="cta-button"><a class="button select-btn" href="#workout/block/<%=blockId%>/week/<%=weekId%>/day/<%=id%>">Select</a>
-                </li>
+            </ul>
+        </div>
+    </script>
+    <script type="text/template" id="exercise-template">
+        <div class="panel callout radius">
+            <ul>
+                <li><%=name%></li>
+                <li><%=rest%></li>
             </ul>
         </div>
     </script>
@@ -199,17 +208,22 @@
                 <li class="price">
                     <%=goal%>
                 </li>
-                <li class="description">
-                    <%=description%>
-                </li>
                 <li class="bullet-item">
                    Intensity: <span class="intensity capitalize label"><%=intensity%></span>
                 </li>
-                <li class="bullet-item">
-                   EXERCISES
+                  <li class="description">
+                    <%=one_rep_max%><br/>
+                    Reps: <%=reps%><br/> 
+                    Sets: <%=sets%><br/>
+                    Rest: <%=rest%><br/>
                 </li>
                 <li class="exercise bullet-item"></li>
-                <li class="cta-button"><a class="button edit">Edit</a>
+                <li class="bullet-item add-exercise">
+                    <div class="panel callout radius">
+                       <a class="add"><span class="addSymbol">+</span> Add Exercise</a>
+                    </div>
+                </li>
+                <li class="cta-button"><a class="button edit expand">Edit</a><a class="button done expand hide">Done</a>
                 </li>
             </ul>
         </div>

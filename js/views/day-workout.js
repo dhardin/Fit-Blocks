@@ -5,7 +5,6 @@ app.DayWorkoutView = Backbone.View.extend({
 
     events: {
         'click .add': 'addExercise',
-        'click .remove': 'removeExercise',
         'click .edit': 'toggleEdit',
         'click .done' : 'toggleEdit',
         'click .nextDay': 'nextDay',
@@ -25,10 +24,11 @@ app.DayWorkoutView = Backbone.View.extend({
         this.$exercise_list = this.$exercise.parent();
         this.$nextDay = this.$('.nextDay');
         this.$prevDay = this.$('.prevDay');
-        this.$editBtn = this.$('.editBtn');
-        this.$doneBtn = this.$('.doneBtn');
-        this.$addExercise = this.$('.addExercise');
+        this.$editBtn = this.$('.edit');
+        this.$doneBtn = this.$('.done');
+        this.$addExercise = this.$('.add-exercise');
         this.applyStyling();
+
         exercises.each(function(item) {
             this.renderItem(item);
         }, this);
@@ -37,10 +37,10 @@ app.DayWorkoutView = Backbone.View.extend({
     },
 
     renderItem: function(item) {
-        var dayView = new app.DayView({
+        var exerciseView = new app.ExerciseView({
             model: item
         });
-        this.$el.append(dayView.render().el);
+        this.$el.append(exerciseView.render().el);
     },
 
     addExercises: function() {
@@ -106,7 +106,7 @@ app.DayWorkoutView = Backbone.View.extend({
         var isEditing = this.$editBtn.is(':visible');
         this.$editBtn.toggle(!isEditing);
         this.$addExercise.toggle(isEditing)
-        this.$doneBtn.toggle(isEditing);
+        this.$doneBtn.toggleClass('hide', !isEditing);
     },
 
 

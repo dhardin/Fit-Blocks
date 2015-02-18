@@ -94,13 +94,15 @@ app.GoalSelectView = Backbone.View.extend({
             week_intensity = week.get('intensity');
             //create days for week model
             var days = new app.Collection.Days([]);
+            var exercises = new app.Collection.Exercises([]);
             for (j = 0; j < MAX_DAYS_IN_WEEK; j++) {
                 //create new day with current day of the week (number)
                 day = new app.Day({
                     id: j + 1,
                     weekId: i + 1,
                     blockId: blockId,
-                    intensity: this.training_days_arr[week_intensity - 1][j]
+                    intensity: this.training_days_arr[week_intensity - 1][j],
+                    exercises: exercises
                 });
                 days.add(day);
             }

@@ -7,10 +7,6 @@
 	max-width: 100% !important;
 }
 
-.cta-button .button, .button.next{
-	width: 100% !important;
-}
-
 .hub-img {
 	display: block;
 	height: 70%;
@@ -74,7 +70,7 @@
 	padding: 0 3rem 0 3rem;
 }
 
-.block {
+.block, .add-exercise .panel {
 	cursor: pointer;
 	font-weight: bold;
 }
@@ -95,7 +91,7 @@
 	visibility: hidden;
 }
 
-.done-intensity-btn, .intensity-tools, .exercise-placeholder {
+.done-intensity-btn, .intensity-tools, .exercise-placeholder, .add-exercise{
 	display: none;
 }
 
@@ -122,4 +118,16 @@
     -ms-user-select: none;
     user-select: none;
 }
-}
+ .addSymbol {
+ 	font-weight: bold;
+ }
+
+@media only screen and (min-width: 64.063em) {
+	.days .large-7-columns.columns{
+		width: 14.28571% !important;
+	}
+
+	.days .large-7-columns.columns .price {
+		font-size: 1.5em !important;
+	}
+ } /* min-width 1025px, large screens */
