@@ -60,7 +60,7 @@ app.DayWorkoutView = Backbone.View.extend({
     },
 
     addExercise: function() {
-        this.$exercise_modal.foundation('reveal', 'open');
+    
     },
 
     removeExercise: function(){

@@ -108,8 +108,6 @@
         <a class="button expand add">+ Add Block</a>
         <div class="blocks"></div>
         <a href="#" class="button expand">Finish</a>
-
-
         <div id="goal-modal" class="row goal-select reveal-modal" data-reveal>
             <a class="close-reveal-modal">&#215;</a>
             <br/>
@@ -199,7 +197,7 @@
     <script type="text/template" id="exercise-selection-template">
         <div class="row">
             <div class="large-12 columns">
-                <input type="text" placeholder="Search" />
+                <input class="search" type="text" placeholder="Search" />
             </div>
         </div>
         <div class="row">
@@ -256,16 +254,16 @@
                 <li class="exercise bullet-item"></li>
                 <li class="bullet-item add-exercise">
                     <div class="add panel callout radius">
-                        <a><span class="addSymbol">+</span> Add Exercise</a>
+                        <a data-reveal-id="exercise-modal"><span class="addSymbol">+</span> Add Exercise</a>
                     </div>
                 </li>
                 <li class="cta-button"><a class="button edit expand">Edit</a><a class="button done expand hide">Done</a>
                 </li>
             </ul>
         </div>
-        <div class="exercise-modal" class="reveal-modal" data-reveal>
-            <div class="exercise-list"></div>
+        <div id="exercise-modal" class="reveal-modal" data-reveal>
             <a class="close-reveal-modal">&#215;</a>
+            <div class="exercise-list"></div>
         </div>
     </script>
     <script type="text/template" id="routine-template">

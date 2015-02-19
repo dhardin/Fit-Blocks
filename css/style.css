@@ -122,8 +122,9 @@
  	font-weight: bold;
  }
 
- .exercise-modal {
- 	display: none;
+ #exercise-modal {
+ 	max-height: 80%;
+ 	overflow-y: scroll;
  }
 
 @media only screen and (min-width: 64.063em) {

@@ -3,12 +3,13 @@ var app = app || {};
 app.ExercisesView = Backbone.View.extend({
     template: _.template($('#exercise-selection-template').html()),
 
-    events: {},
+    events: {
+        'keyup .search' : 'search'
+    },
 
     initialize: function(options) {
         options = options || {};
         this.collection = options.collection || new app.Collection.Exercises([]);
-        this.$exercises = this.$('.exercises');
 
  		this.collection.on('reset add remove', function(){
  			this.render();
@@ -16,9 +17,18 @@ app.ExercisesView = Backbone.View.extend({
     },
 
     render: function(options) {
-        var collection = (options && options.collection ? options.collection : this.collection);
-        
         this.$el.html(this.template());
+        options = options || {};
+        var collection = options.collection || this.collection;
+        this.$exercises = this.$('.exercises');
+        this.$search = this.$('.search');
+
+        if(options.filtered && options.searchVal){
+            this.$search.val(options.searchVal);
+            this.$search.focus();
+        }
+
+       
 
         collection.each(function(item) {
             this.renderItem(item);
@@ -32,6 +42,11 @@ app.ExercisesView = Backbone.View.extend({
         var exerciseView = new app.ExerciseListItemView({
             model: item
         });
-        this.$('.exercises').append(exerciseView.render().el);
+         this.$exercises.append(exerciseView.render().el);
+    },
+
+    search: function(e){
+        var val = $(e.currentTarget).val();
+        this.render({collection: this.collection.search({text: {val: val}}), filtered: true, searchVal: val});
     }
 });
