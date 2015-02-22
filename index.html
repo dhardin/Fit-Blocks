@@ -232,8 +232,8 @@
     <script type="text/template" id="day-workout-template">
         <div class="panel">
             <ul class="pricing-table">
-                <li class="title"><a class="prevDay">&laquo;--- </a> Day
-                    <%=id%> <a class="nextDay"> ---&raquo;</a>
+                <li class="title"><a class="prevDay left">&laquo;--- </a> Day
+                    <%=id%> <a class="nextDay right"> ---&raquo;</a>
                 </li>
                 <li class="price">
                     <%=goal%>
@@ -251,6 +251,13 @@
                                 <%=rest%>
                                     <br/>
                 </li>
+                <li>
+                    <div class="add-exercise-container">
+                        <input class="add-exercise-input" type="text" placeholder="Add Exercise" />
+                        <a class="add-exercise-btn">+</a>
+                        <div class="exercise-list"></div>
+                    </div>
+                </li>
                 <li class="exercise bullet-item"></li>
                 <li class="bullet-item add-exercise">
                     <div class="add panel callout radius">
@@ -260,10 +267,6 @@
                 <li class="cta-button"><a class="button edit expand">Edit</a><a class="button done expand hide">Done</a>
                 </li>
             </ul>
-        </div>
-        <div id="exercise-modal" class="reveal-modal" data-reveal>
-            <a class="close-reveal-modal">&#215;</a>
-            <div class="exercise-list"></div>
         </div>
     </script>
     <script type="text/template" id="routine-template">
@@ -318,7 +321,7 @@
     <script src="js/views/weeks.js"></script>
     <script src="js/views/day.js"></script>
     <script src="js/views/day-workout.js"></script>
-     <script src="js/views/exercise.js"></script>
+    <script src="js/views/exercise.js"></script>
     <script src="js/views/exercises.js"></script>
     <script src="js/views/exerciseListItem.js"></script>
     <script src="js/views/fetchingData.js"></script>

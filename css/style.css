@@ -122,10 +122,21 @@
  	font-weight: bold;
  }
 
- #exercise-modal {
- 	max-height: 80%;
- 	overflow-y: scroll;
- }
+.add-exercise-container {
+	display: relative;
+}
+.exercise-list {
+	display: none;
+	position: relative;
+	z-index: 9999;
+}
+
+.add-exercise-btn {
+	position: absolute;
+	right: 1em;
+	top: 0.1em;
+	font-size: 2em;
+}
 
 @media only screen and (min-width: 64.063em) {
 	.days .large-7-columns.columns{

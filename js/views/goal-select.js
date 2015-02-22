@@ -26,15 +26,6 @@ app.GoalSelectView = Backbone.View.extend({
         this.numTrainingDays = 3;
         this.training_days = [];
         this.monthly_goals = {};
-        this.training_days_arr = [
-            ['medium', 'off', 'high', 'off', 'low', 'off', 'off'],
-            ['high', 'off', 'high', 'off', 'low', 'off', 'off'],
-            ['high', 'medium', 'off', 'high', 'low', 'off', 'off'],
-            ['high', 'high', 'off', 'high', 'low', 'off', 'off'],
-            ['high', 'medium', 'high', 'off', 'high', 'low', 'off'],
-            ['high', 'high', 'high', 'off', 'high', 'low', 'off'],
-            ['high', 'high', 'medium', 'high', 'high', 'low', 'off']
-        ];
 
         //initialize events that occur in modal
         (function(that) {
@@ -78,43 +69,9 @@ app.GoalSelectView = Backbone.View.extend({
     addBlock: function(e) {
         var block = new app.Block({
                 editable: true,
-                routable: false
-            }),
-            day, week, week_intensity,
-            blockId = app.BlockCollection.length + 1,
-            MAX_DAYS_IN_WEEK = 7;
-
-
-        weeks = new app.Collection.Weeks([]);
-        for (i = 0; i < block.get('numWeeks'); i++) {
-            week = new app.Week({
-                id: i + 1
+                routable: false,
+                id: app.BlockCollection.length + 1
             });
-            //get default intensity
-            week_intensity = week.get('intensity');
-            //create days for week model
-            var days = new app.Collection.Days([]);
-            var exercises = new app.Collection.Exercises([]);
-            for (j = 0; j < MAX_DAYS_IN_WEEK; j++) {
-                //create new day with current day of the week (number)
-                day = new app.Day({
-                    id: j + 1,
-                    weekId: i + 1,
-                    blockId: blockId,
-                    intensity: this.training_days_arr[week_intensity - 1][j],
-                    exercises: exercises
-                });
-                days.add(day);
-            }
-            week.set({
-                days: days
-            });
-            weeks.add(week);
-        }
-        block.set({
-            weeks: weeks
-        });
-
         app.BlockCollection.add(block);
     }
 });

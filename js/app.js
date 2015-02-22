@@ -46,8 +46,12 @@ exercises = [
 //populate test data
 app.getData = function() {
     app.BlockCollection = app.BlockCollection || new app.Collection.Blocks([]);
+    
+
     app.ExerciseCollection = app.ExerciseCollection || new app.Collection.Exercises(exercises);
-}
+    var block = new app.Block({id: app.BlockCollection.length + 1});
+    app.BlockCollection.add(block);
+}	
 
 //fetch data from server
 app.getData();

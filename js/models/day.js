@@ -20,6 +20,7 @@ app.Day = Backbone.Model.extend({
         _.bindAll(this, "update");
         this.on('change:goal', this.update);
          this.on('change:intensity', this.update);
+         this.populate();
     },
 
     update: function() {
@@ -72,5 +73,9 @@ app.Day = Backbone.Model.extend({
             sets: set_map[goal],
             rest: rest_map[goal]
         });
+    },
+    populate: function(){
+        var exercises = new app.Collection.Exercises(this.get('exercises') || []);
+        this.set({exercises: exercises});
     }
 });
