@@ -13,9 +13,11 @@ app.Block = Backbone.Model.extend({
     },
     initialize: function() {
         this.populate();
+        this.update();
+        this.on('change:goal', this.update);
     },
     populate: function() {
-        var block_id = this.get('id'), week, numWeeks = 0;
+        var block_id = this.get('id'), week, numWeeks = 0, goal= this.get('goal');
 
 
         weeks = new app.Collection.Weeks(this.get('weeks') || []);
@@ -31,12 +33,29 @@ app.Block = Backbone.Model.extend({
         for (i = 0; i < numWeeks; i++) {
             week = new app.Week({
                 id: i + 1,
-                block_id: block_id
+                block_id: block_id,
+                goal: goal
             });
             weeks.add(week);
         }
         this.set({
             weeks: weeks
         });
+    },
+    update: function(){
+      var attribute, numWeeks = 0;
+
+      for (attribute in this.changed){
+        switch(attribute){
+          case 'goal':
+            //set goals for child weeks
+            this.get('weeks').each(function(week){
+              week.set('goal', this.changed[attribute]);
+            });
+            break;
+          default:
+            break;
+        }
+      }
     }
 });

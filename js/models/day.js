@@ -17,16 +17,7 @@ app.Day = Backbone.Model.extend({
         dayId: 0
     },
     initialize: function() {
-        _.bindAll(this, "update");
-        this.on('change:goal', this.update);
-         this.on('change:intensity', this.update);
-         this.populate();
-    },
-
-    update: function() {
-        var goal = this.get('goal'),
-            intensity = this.get('intensity'),
-            rm_map = {
+         this.rm_map = {
                 strength: {
                     low: '65% 1 RM',
                     medium: '70-75% 1 RM',
@@ -47,31 +38,51 @@ app.Day = Backbone.Model.extend({
                     medium: '60-65% 1 RM',
                     high: '70% 1 RM'
                 },
-            },
-            rep_map = {
+            }
+            this.rep_map = {
                 strength: '5',
                 power: '3-6',
                 hypertrophy: '8-12',
                 endurance: '10-15+'
-            },
-            set_map = {
+            }
+            this.set_map = {
                 strength: '5',
                 power: '5-10',
                 hypertrophy: '3-5',
                 endurance: '5-10'
-            },
-            rest_map = {
+            }
+            this.rest_map = {
                 strength: '2 min',
                 power: '1-2 min',
                 hypertrophy: '45 sec',
                 endurance: '>15 reps: 1-2 min; 10-15 reps: < 1 min'
             };
+            this.goal_map={
+                strength: true,
+                power: true,
+                hypertrophy: true,
+                endurance: true
+            };
+        _.bindAll(this, "update");
+        this.on('change:goal', this.update);
+         this.on('change:intensity', this.update);
+         this.populate();
+         this.update();
+    },
+
+    update: function() {
+        var goal = this.get('goal'),
+            intensity = this.get('intensity');
+           
+        if(!this.goal_map[goal]){
+            return;
+        }
 
         this.set({
-            one_rep_max: rm_map[goal][intensity],
-            reps: rep_map[goal],
-            sets: set_map[goal],
-            rest: rest_map[goal]
+            one_rep_max: this.rm_map[goal][intensity],
+            reps: this.rep_map[goal],
+            sets: this.set_map[goal],
+            rest: this.rest_map[goal]
         });
     },
     populate: function(){

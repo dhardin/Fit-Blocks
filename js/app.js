@@ -49,7 +49,7 @@ app.getData = function() {
     
 
     app.ExerciseCollection = app.ExerciseCollection || new app.Collection.Exercises(exercises);
-    var block = new app.Block({id: app.BlockCollection.length + 1});
+    var block = new app.Block({id: app.BlockCollection.length + 1, goal: 'strength'});
     app.BlockCollection.add(block);
 }	
 
