@@ -18,19 +18,57 @@
 </head>
 
 <body>
-    <div class="contain-to-grid sticky">
+    <div class="off-canvas-wrap" data-offcanvas>
+        <div class="inner-wrap">
+            <nav class="tab-bar">
+
+                <section class="middle tab-bar-section">
+                    <h1 class="header"><a href="#"><img id="logo" alt="Brand" src="img/block.png"> Fitness Blocks</a></h1>
+                </section>
+
+                <section class="right-small">
+                    <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
+                </section>
+            </nav>
+
+            <aside class="right-off-canvas-menu">
+                <li>
+                    <label>Directory</label>
+                </li>
+                <li><a href="#workout/">Workout</a>
+                </li>
+                <li><a href="#metrics/">Metrics</a>
+                </li>
+                <li><a href="#goals/">Goals</a>
+                </li>
+            </aside>
+
+            <section class="main-section">
+                <ul class="breadcrumbs">
+                    <li class="home"><a class="current" href="#">Home</a>
+                    </li>
+                </ul>
+
+                <div id="main"></div>
+            </section>
+
+            <a class="exit-off-canvas"></a>
+
+        </div>
+    </div>
+    <!-- <div class="contain-to-grid sticky">
         <nav class="top-bar" data-topbar role="navigation">
             <ul class="title-area">
                 <li class="name">
                     <h1><a href="#"><img id="logo" alt="Brand" src="img/block.png"> Fitness Blocks</a></h1>
                 </li>
-                <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-                <li class="toggle-topbar menu-icon"><a><span>Menu</span></a>
+      
+               <li class="toggle-topbar menu-icon"><a><span>Menu</span></a>
                 </li>
             </ul>
 
             <section class="top-bar-section">
-                <!-- Right Nav Section -->
+       
                 <ul class="right">
                     <li class="has-dropdown">
                         <a>Tools</a>
@@ -44,14 +82,9 @@
                 </ul>
             </section>
         </nav>
-    </div>
+    </div>-->
 
-    <ul class="breadcrumbs">
-        <li class="home"><a class="current" href="#">Home</a>
-        </li>
-    </ul>
 
-    <div id="main"></div>
 
     <!-- TEMPLATES -->
     <script type="text/template" id="home-template">
@@ -73,7 +106,7 @@
                 </a>
             </div>
             <div class="small-12  medium-12 large-4 columns hub-button">
-                <a href="#routines/">
+                <a href="#goals/">
                     <div class="panel">
                         <h2 class="header">Goals</h2>
                         <img class="hub-img" src="img/routine.png" />
@@ -196,24 +229,14 @@
 
     <script type="text/template" id="exercise-selection-template">
         <div class="row">
-            <div class="large-12 columns">
-                <input class="search" type="text" placeholder="Search" />
+            <div class="large-12 columns exercise-add-section">
+                <div class="exercises large-12 columns"></div>
             </div>
-        </div>
-        <div class="row">
-            <div class="exercises large-12 columns"></div>
         </div>
     </script>
 
-    <script type="text/template" id="exercise-list-item-template">
-        <ul class="pricing-table">
-            <li class="title">
-                <%=name%>
-            </li>
-            <li class="description">
-                <%=muscles%>
-            </li>
-        </ul>
+    <script type="text/template" id="exercise-list-item-template">          
+         <a><%=name%></a>
     </script>
 
     <script type="text/template" id="exercise-template">
@@ -251,22 +274,14 @@
                                 <%=rest%>
                                     <br/>
                 </li>
-                <li>
-                    <div class="add-exercise-container">
-                        <input class="add-exercise-input" type="text" placeholder="Add Exercise" />
-                        <a class="add-exercise-btn">+</a>
-                        <div class="exercise-list"></div>
-                    </div>
-                </li>
+
                 <li class="exercise bullet-item"></li>
-                <li class="bullet-item add-exercise">
-                    <div class="add panel callout radius">
-                        <a data-reveal-id="exercise-modal"><span class="addSymbol">+</span> Add Exercise</a>
-                    </div>
-                </li>
-                <li class="cta-button"><a class="button edit expand">Edit</a><a class="button done expand hide">Done</a>
+                <li>
+                    <input class="search" type="text" placeholder="+ Add Exercise" />
+                    <div class="exercise-list"></div>
                 </li>
             </ul>
+
         </div>
     </script>
     <script type="text/template" id="routine-template">
@@ -324,6 +339,7 @@
     <script src="js/views/exercise.js"></script>
     <script src="js/views/exercises.js"></script>
     <script src="js/views/exerciseListItem.js"></script>
+        <script src="js/views/selectedExerciseListItem.js"></script>
     <script src="js/views/fetchingData.js"></script>
     <script src="js/views/error.js"></script>
     <script src="js/views/app.js"></script>

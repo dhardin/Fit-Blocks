@@ -66,6 +66,7 @@ app.Day = Backbone.Model.extend({
         _.bindAll(this, "update");
         this.on('change:goal', this.update);
          this.on('change:intensity', this.update);
+         Backbone.pubSub.on('add-exercise', this.addExercise, this);
          this.populate();
          this.update();
     },
@@ -88,5 +89,11 @@ app.Day = Backbone.Model.extend({
     populate: function(){
         var exercises = new app.Collection.Exercises(this.get('exercises') || []);
         this.set({exercises: exercises});
+    },
+    addExercise: function(exercise){
+        var exercises = this.get('exercises'),
+        model = new app.Exercise(exercise);
+
+        exercises.add(model);
     }
 });

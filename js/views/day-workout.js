@@ -8,11 +8,13 @@ app.DayWorkoutView = Backbone.View.extend({
         'click .edit': 'toggleEdit',
         'click .done' : 'toggleEdit',
         'click .nextDay': 'nextDay',
-        'click .prevDay': 'prevDay'
+        'click .prevDay': 'prevDay',
+        'keyup .search' : 'search'
     },
 
     initialize: function(options) {
         this.on('change', this.render, this);
+        Backbone.pubSub.on('add-exercise', this.onAddExercise, this);
     },
 
     render: function() {
@@ -26,45 +28,35 @@ app.DayWorkoutView = Backbone.View.extend({
         this.$prevDay = this.$('.prevDay');
         this.$editBtn = this.$('.edit');
         this.$doneBtn = this.$('.done');
+        this.$exercise = this.$('.exercise');
         this.$exercises = this.$('.exercise-list');
         this.$exercise_modal = this.$('.exercise-modal');
-        this.$addExercise = this.$('.add-exercise');
+        this.$search = this.$('.search');
         this.$add = this.$('.add');
         this.applyStyling();
 
-        //render day's exercises
-        exercises.each(function(item) {
-            this.renderItem(item);
-        }, this);
+        this.selectedExercisesView = new app.ExercisesView({
+            collection: exercises,
+            el: this.$exercise[0],
+            itemView: app.SelectedExerciseListItemView
+        });
 
         this.exercisesView = new app.ExercisesView({
             collection: app.ExerciseCollection,
             el: this.$exercises[0],
-            itemView: app.ExerciseListItemView
+            itemView: app.ExerciseListItemView,
+            isSearchable: true
         });
 
-        this.$add.on('click', this.addExercise);
-
-
-
+        this.selectedExercisesView.render();
         this.exercisesView.render();
+       
 
         return this;
     },
 
-    renderItem: function(item) {
-        var exerciseView = new app.ExerciseView({
-            model: item
-        });
-        this.$el.append(exerciseView.render().el);
-    },
-
-    addExercise: function() {
-    
-    },
-
-    removeExercise: function(){
-
+    onAddExercise: function () {
+        this.$search.val('');
     },
 
     applyStyling: function() {
@@ -117,6 +109,10 @@ app.DayWorkoutView = Backbone.View.extend({
         this.$addExercise.toggle(isEditing)
         this.$doneBtn.toggleClass('hide', !isEditing);
     },
+    search: function(e){
+        var val = $(e.currentTarget).val();
 
+        Backbone.pubSub.trigger('search', {collection:app.ExerciseCollection, val: val});
+    }
 
 });

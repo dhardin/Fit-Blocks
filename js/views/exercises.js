@@ -4,16 +4,22 @@ app.ExercisesView = Backbone.View.extend({
     template: _.template($('#exercise-selection-template').html()),
 
     events: {
-        'keyup .search' : 'search'
+        'keyup .search': 'search'
     },
 
     initialize: function(options) {
         options = options || {};
         this.collection = options.collection || new app.Collection.Exercises([]);
+        Backbone.pubSub.on('search', this.search, this);
+        Backbone.pubSub.on('add-exercise', this.onAddExercise, this);
+        this.itemView = options.itemView || false;
+        this.isSearchable = options.isSearchable || false;
 
- 		this.collection.on('reset add remove', function(){
- 			this.render();
- 		}, this);
+        this.collection.on('reset add remove', function() {
+            this.render({
+                render: true
+            });
+        }, this);
     },
 
     render: function(options) {
@@ -21,32 +27,51 @@ app.ExercisesView = Backbone.View.extend({
         options = options || {};
         var collection = options.collection || this.collection;
         this.$exercises = this.$('.exercises');
-        this.$search = this.$('.search');
 
-        if(options.filtered && options.searchVal){
-            this.$search.val(options.searchVal);
-            this.$search.focus();
+        if (options.filtered && options.searchVal || options.render) {
+            collection.each(function(item) {
+                this.renderItem(item);
+            }, this);
         }
 
-       
-
-        collection.each(function(item) {
-            this.renderItem(item);
-        }, this);
-
         return this;
-
     },
 
     renderItem: function(item) {
-        var exerciseView = new app.ExerciseListItemView({
+        var exerciseView = (this.itemView ? new this.itemView({
             model: item
-        });
-         this.$exercises.append(exerciseView.render().el);
+        }) : new app.ExerciseListItemView({
+            model: item
+        }));
+        this.$exercises.append(exerciseView.render().el);
     },
 
-    search: function(e){
-        var val = $(e.currentTarget).val();
-        this.render({collection: this.collection.search({text: {val: val}}), filtered: true, searchVal: val});
+    onAddExercise: function () {
+        if (this.isSearchable){
+            this.render();
+        }
+    },
+
+    search: function(options) {
+        var val = '';
+        options = options || options;
+
+        val = options.val || '';
+        collection = options.collection || false;
+
+        if (collection != this.collection) {
+            return;
+        }
+
+        this.render({
+            collection: this.collection.search({
+                text: {
+                    val: val,
+                    attribute: 'name'
+                }
+            }),
+            filtered: true,
+            searchVal: val
+        });
     }
 });

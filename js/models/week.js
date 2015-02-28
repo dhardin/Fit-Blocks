@@ -51,14 +51,14 @@ app.Week = Backbone.Model.extend({
     },
     update: function() {
         var changed = this.changed,
-            intensity = changed.intensity || this.get('intensity'),
+            intensity = (changed.intensity || this.get('intensity')) - 1,
             goal = changed.goal || this.get('goal'),
             updates = {},
             training_days_arr = this.training_days_arr;
 
         this.get('days').each(function(day) {
             day.set({
-                intensity: training_days_arr[intensity - 1][day.get('id')],
+                intensity: training_days_arr[intensity][day.get('id') - 1],
                 goal: goal
             });
         });

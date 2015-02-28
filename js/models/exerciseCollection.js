@@ -23,8 +23,10 @@ app.Collection.Exercises = Backbone.Collection.extend({
                     }
                     attribute = queries[query_key].attribute;
                     results = results.filter(function(model) {
-                        if (attribute && model.get(attribute) && model.get(attribute).indexOf(val) > -1) {
-                            return true;
+                        if (attribute && model.get(attribute)) {
+                            if(model.get(attribute).indexOf(val) > -1){
+                                return true;
+                            }
                         } else {
                             //search through all attributes
                             //if one matches, return true

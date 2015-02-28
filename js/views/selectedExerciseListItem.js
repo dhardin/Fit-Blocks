@@ -1,6 +1,6 @@
 var app = app || {};
 
-app.ExerciseListItemView = Backbone.View.extend({
+app.SelectedExerciseListItemView = Backbone.View.extend({
     template: _.template($('#exercise-list-item-template').html()),
     className: 'panel exercise-list-item text-center',
     events: {
@@ -18,7 +18,6 @@ app.ExerciseListItemView = Backbone.View.extend({
     },
 
     select: function(e){
-        this.$el.toggleClass('callout', true);
-        Backbone.pubSub.trigger('add-exercise', this.model.attributes);
+        this.$el.toggleClass('callout');
     }
 });

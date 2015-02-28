@@ -44,8 +44,7 @@ app.GoalSelectView = Backbone.View.extend({
             hideCompleted: true,
             routable: false
         });
-
-        //append views to elements
+        
         this.blocksView.render();
         return this;
     },
@@ -67,6 +66,7 @@ app.GoalSelectView = Backbone.View.extend({
     },
 
     addBlock: function(e) {
+        e.stopPropagation();
         var block = new app.Block({
                 editable: true,
                 routable: false,

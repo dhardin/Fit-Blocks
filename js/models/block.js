@@ -43,14 +43,14 @@ app.Block = Backbone.Model.extend({
         });
     },
     update: function(){
-      var attribute, numWeeks = 0;
+      var attribute, numWeeks = 0, changed = this.changed;
 
       for (attribute in this.changed){
         switch(attribute){
           case 'goal':
             //set goals for child weeks
             this.get('weeks').each(function(week){
-              week.set('goal', this.changed[attribute]);
+              week.set('goal', changed[attribute]);
             });
             break;
           default:

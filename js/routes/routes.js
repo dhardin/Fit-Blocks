@@ -3,9 +3,7 @@ var app = app || {};
 var Router = Backbone.Router.extend({
     routes: {
         '': 'home',
-        'routines/goals': 'goalSelect',
-        'routines/intensity': 'intensitySelect',
-        'routines/*': 'goalSelect',
+        'goals/': 'goalSelect',
         'edit/:id': 'editItem',
         'edit/*': 'editItem',
         'metrics/': 'metrics',
@@ -127,11 +125,6 @@ var Router = Backbone.Router.extend({
         this.AppView.showView(goalSelect);
     },
 
-    intensitySelect: function() {
-        var intensitySelect = new app.IntesitySelectView();
-        this.AppView.showView(intensitySelect);
-    },
-
     onRouteChange: function(route, params) {
         //parse out hash
         var hashRoute = window.location.hash.substring(1),
@@ -152,7 +145,7 @@ var Router = Backbone.Router.extend({
                 continue;
             }
             href += breadcrumb;
-            $breadcrumbs.append('<li class="' + (i == routePathArr.length - 1 ? 'current' : '') + '"><a href="' + href + '">' + breadcrumb + '</a></li>');
+            $breadcrumbs.append('<li class="' + (i == routePathArr.length - 1 ? 'current' : '') + '"><a href="' + href + '/">' + breadcrumb + '</a></li>');
             href += '/';
         }
     }
