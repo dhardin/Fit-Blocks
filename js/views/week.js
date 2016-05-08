@@ -51,7 +51,6 @@ app.WeekView = Backbone.View.extend({
         }
 
         return this;
-
     },
     renderItem: function(item) {
         var dayView = new app.DayView({

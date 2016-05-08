@@ -8,6 +8,7 @@ app.BlockDisplayView = Backbone.View.extend({
 		 this.model.on('change', this.render, this);
 		 Backbone.pubSub.on('unselect', this.unselect, this);
 		 Backbone.pubSub.on('set-goal', this.setGoal, this);
+		 this.childViews = [];
 	},
 	
 	render: function () {
@@ -21,10 +22,22 @@ app.BlockDisplayView = Backbone.View.extend({
             editable: true
         });
 
+		this.childViews.push(this.weeksView);
         //append views to elements
         this.weeksView.render();
 		return this;
-	}
+	},
+	 onClose: function() {
+        _.each(this.childViews, function(childView) {
+            childView.remove();
+            childView.unbind();
+            if (childView.onClose) {
+                childView.onClose();
+            }
+        });
+         Backbone.pubSub.off('unselect');
+		 Backbone.pubSub.off('set-goal');
+    }
 
 	
 });

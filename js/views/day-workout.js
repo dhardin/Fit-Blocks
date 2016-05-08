@@ -6,15 +6,16 @@ app.DayWorkoutView = Backbone.View.extend({
     events: {
         'click .add': 'addExercise',
         'click .edit': 'toggleEdit',
-        'click .done' : 'toggleEdit',
+        'click .done': 'toggleEdit',
         'click .nextDay': 'nextDay',
         'click .prevDay': 'prevDay',
-        'keyup .search' : 'search'
+        'keyup .search': 'search'
     },
 
     initialize: function(options) {
         this.on('change', this.render, this);
         Backbone.pubSub.on('add-exercise', this.onAddExercise, this);
+        this.childViews = [];
     },
 
     render: function() {
@@ -38,81 +39,119 @@ app.DayWorkoutView = Backbone.View.extend({
         this.selectedExercisesView = new app.ExercisesView({
             collection: exercises,
             el: this.$exercise[0],
-            itemView: app.SelectedExerciseListItemView
+            itemView: app.SelectedExerciseListItemView,
+            show: true,
+            routable: true
         });
 
         this.exercisesView = new app.ExercisesView({
             collection: app.ExerciseCollection,
             el: this.$exercises[0],
             itemView: app.ExerciseListItemView,
-            isSearchable: true
+            show: false
         });
+
+        this.childViews.push(this.exercisesView);
+        this.childViews.push(this.selectedExercisesView);
+
+
+
+        $(document).on('keyup',this.onKeyDown.bind(this));
 
         this.selectedExercisesView.render();
         this.exercisesView.render();
-       
 
         return this;
     },
 
-    onAddExercise: function () {
+    onClose: function() {
+        _.each(this.childViews, function(childView) {
+            childView.remove();
+            childView.unbind();
+            if (childView.onClose) {
+                childView.onClose();
+            }
+        });
+
+        Backbone.pubSub.off('add-exercise');
+        $(document).off('keyup');
+    },
+
+    onKeyDown: function(e) {
+        e.stopPropagation();
+        switch (e.which) {
+            case 37: //left arrow
+                this.prevDay();
+                break;
+            case 39: //right arrow
+                this.nextDay();
+                break;
+            default:
+                break;
+        }
+    },
+
+    onAddExercise: function() {
         this.$search.val('');
     },
 
     applyStyling: function() {
         var id = this.model.get('id'),
             intensiy_map = {
-            off: 'secondary',
-            low: 'info',
-            medium: '',
-            high: 'success'
-        };
+                off: 'secondary',
+                low: 'info',
+                medium: '',
+                high: 'success'
+            };
         this.$intensity.addClass(intensiy_map[this.model.get('intensity')]);
 
         //apply styling to prev and next day buttons
-        if(id == 1){
+        if (id == 1) {
             this.$prevDay.addClass('disabled');
-        } else if (id == 7){
+        } else if (id == 7) {
             this.$nextDay.addClass('disabled');
         }
     },
 
-    nextDay: function(e){
+    nextDay: function(e) {
         var hash = Backbone.history.location.hash;
-        if(this.$nextDay.hasClass('disabled')){
+        if (this.$nextDay.hasClass('disabled')) {
             return;
         }
         //remove the last 'day' from the hash
         hash = hash.substring(0, hash.length - 1);
         //route to new hash
         app_router.navigate(hash + (this.model.get('id') + 1), {
-                trigger: true
-            });
+            trigger: true
+        });
     },
 
     prevDay: function(e) {
-       var hash = Backbone.history.location.hash;
-       if(this.$prevDay.hasClass('disabled')){
+        var hash = Backbone.history.location.hash;
+        if (this.$prevDay.hasClass('disabled')) {
             return;
         }
         //remove the last 'day' from the hash
         hash = hash.substring(0, hash.length - 1);
         //route to new hash
-          app_router.navigate(hash + (this.model.get('id') - 1), {
-                trigger: true
-            });
+        app_router.navigate(hash + (this.model.get('id') - 1), {
+            trigger: true
+        });
     },
 
-    toggleEdit: function(e){
+    toggleEdit: function(e) {
         var isEditing = this.$editBtn.is(':visible');
         this.$editBtn.toggle(!isEditing);
         this.$addExercise.toggle(isEditing)
         this.$doneBtn.toggleClass('hide', !isEditing);
     },
-    search: function(e){
+    search: function(e) {
         var val = $(e.currentTarget).val();
 
-        Backbone.pubSub.trigger('search', {collection:app.ExerciseCollection, val: val});
+        Backbone.pubSub.trigger('search', {
+            collection: app.ExerciseCollection,
+            val: val
+        });
     }
 
 });

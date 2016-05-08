@@ -21,71 +21,36 @@
     <div class="off-canvas-wrap" data-offcanvas>
         <div class="inner-wrap">
             <nav class="tab-bar">
-
                 <section class="middle tab-bar-section">
                     <h1 class="header"><a href="#"><img id="logo" alt="Brand" src="img/block.png"> Fitness Blocks</a></h1>
                 </section>
-
                 <section class="right-small">
                     <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
                 </section>
             </nav>
-
             <aside class="right-off-canvas-menu">
-                <li>
-                    <label>Directory</label>
-                </li>
-                <li><a href="#workout/">Workout</a>
-                </li>
-                <li><a href="#metrics/">Metrics</a>
-                </li>
-                <li><a href="#goals/">Goals</a>
-                </li>
+                <ul class="off-canvas-list">
+                    <li>
+                        <label>Directory</label>
+                    </li>
+                    <li><a href="#workout/">Workout</a>
+                    </li>
+                    <li><a href="#metrics/">Metrics</a>
+                    </li>
+                    <li><a href="#goals/">Goals</a>
+                    </li>
+                </ul>
             </aside>
-
             <section class="main-section">
                 <ul class="breadcrumbs">
                     <li class="home"><a class="current" href="#">Home</a>
                     </li>
                 </ul>
-
                 <div id="main"></div>
             </section>
-
             <a class="exit-off-canvas"></a>
-
         </div>
     </div>
-    <!-- <div class="contain-to-grid sticky">
-        <nav class="top-bar" data-topbar role="navigation">
-            <ul class="title-area">
-                <li class="name">
-                    <h1><a href="#"><img id="logo" alt="Brand" src="img/block.png"> Fitness Blocks</a></h1>
-                </li>
-      
-               <li class="toggle-topbar menu-icon"><a><span>Menu</span></a>
-                </li>
-            </ul>
-
-            <section class="top-bar-section">
-       
-                <ul class="right">
-                    <li class="has-dropdown">
-                        <a>Tools</a>
-                        <ul class="dropdown">
-                            <li><a href="#routines/">Routine</a>
-                            </li>
-                            <li><a href="#metrics/">Metrics</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </section>
-        </nav>
-    </div>-->
-
-
-
     <!-- TEMPLATES -->
     <script type="text/template" id="home-template">
         <div class="row">
@@ -117,11 +82,8 @@
     </script>
     <script type="text/template" id="block-collection-template">
     </script>
-
     <script type="text/template" id="week-collection-template"></script>
-
     <script type="text/template" id="day-collection-template"></script>
-
     <script type="text/template" id="block-template">
         <div class="small-12 medium-6 large-2 columns">
             <div class="panel block">
@@ -134,7 +96,147 @@
             </div>
         </div>
     </script>
-
+    <script type="text/template" id="about-template">
+        <div class="grid-container">
+            <h4>Katch McArdle Formulas</h4>
+            <dl>
+                <dt>Lean Body Mass (LBM)</dt>
+                <dd>LBM = Body Weight * Body Fat Percentage</dd>
+            </dl>
+            <dl>
+                <dt>Basal Metabolic Rate (BMR)</dt>
+                <dd>BMR = 370 + (21.6 * LBM / 2.2)</dd>
+            </dl>
+            <dl>
+                <dt>Total Daily Energy Expenditure (TDEE)</dt>
+                <dd>TDEE = BMR x TDEEC</dd>
+            </dl>
+            <dl>
+                <dt>Total Daily Energy Expenditure Constant (TDEEC)</dt>
+                <dd>TDEEC = 1.2 <i>if Hours of Exercise = 1 - 3</i></dd>
+                <dd>TDEEC = 1.35 <i>if Hours of Exercise = 3 - 6</i></dd>
+                <dd>TDEEC = 1.5 <i>if Hours of Exercise = >6</i></dd>
+            </dl>
+        </div>
+    </script>
+    <script type="text/template" id="dashboard-template">
+        <div class="grid-container" ng-controller="DashboardCtrl">
+            <div id="chart"></div>
+        </div>
+    </script>
+    <script type="text/template" id="home-template">
+        <form>
+            <div class="grid-block">
+                <div class="small-12 grid-content">
+                    <h4>Person Info</h4>
+                </div>
+                <div class="small-12 medium-4 grid-content">
+                    <label>Units</label>
+                    <input type="radio" name="units" value="lbs" checked ng-model="units" ng-change="onUnitChanged(units)" />
+                    <label for="standard">Standard (lbs)</label>
+                    <input type="radio" name="units" value="kgs" ng-model="units" ng-change="onUnitChanged(units)" />
+                    <label for="metric">Metric (kgs)</label>
+                </div>
+                <div class="small-12 medium-4 grid-content">
+                    <label>Goal</label>
+                    <select ng-model="goal" ng-change="onChange()">
+                        <option value="cut">Cut</option>
+                        <option value="gain">Gain</option>
+                        <option value="maintain">Maintain</option>
+                    </select>
+                </div>
+                <div class="small-12 medium-4 grid-content">
+                    <label>Hours Exercise Per Week</label>
+                    <select ng-model="hoursExercise" ng-change="onChange()">
+                        <option value="low">1 to 3</option>
+                        <option value="medium">4 to 6</option>
+                        <option value="high">6+</option>
+                    </select>
+                </div>
+                <div class="small-12 medium-6 grid-content">
+                    <label>
+                        Weight
+                        <span class="inline-label">
+                    <input type="text" ng-model="weight" ng-change="onChange()"/>
+                    <span class="form-label unit">lbs</span>
+                    </label>
+                </div>
+                <div class="small-12 medium-6 grid-content">
+                    <label>
+                        Body Fat %
+                        <span class="inline-label">
+                    <input type="text"  ng-model="bodyFatPercentage" ng-change="onChange()"/>
+                    <span class="form-label unit">%</span>
+                    </label>
+                </div>
+                <div class="small-12 medium-6 grid-content">
+                    <label>
+                        Lean Body Weight
+                        <span class="inline-label">
+                    <input type="text" ng-model="leanBodyWeight" disabled>
+                    <span class="form-label unit">lbs</span>
+                    </label>
+                </div>
+                <div class="small-12 medium-6 grid-content">
+                    <label>
+                        Total Body Fat
+                        <span class="inline-label">
+                    <input type="text" ng-model="totalBodyFat" disabled/>
+                    <span class="form-label unit">lbs</span>
+                    </label>
+                </div>
+                <div class="small-12 grid-content">
+                    <h4>Macro/Calorie Recommendations</h4>
+                </div>
+                <div class="small-12 medium-6 grid-content science">
+                    <h4 class="subheader">Katch McArdle</h4>
+                    <div class="grid-block">
+                        <div class="small-12 grid-content">
+                            <label>
+                                Total Calories
+                                <input type="text" ng-model="tdee" disabled/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 grid-content broScience">
+                    <h4 class="subheader">Bro Science</h4>
+                    <div class="grid-block">
+                        <div class="small-12  grid-content">
+                            <label>
+                                Total Calories
+                                <input type="text" ng-model="broCalories" disabled/>
+                            </label>
+                        </div>
+                        <div class="small-12 grid-content">
+                            <label>
+                                Protein
+                                <span class="inline-label">
+                                <input type="text" ng-model="broProtein" disabled/>
+                                <span class="form-label unit">g</span>
+                            </label>
+                        </div>
+                        <div class="small-12 grid-content">
+                            <label>
+                                Carbs
+                                <span class="inline-label">
+                                <input type="text" ng-model="broCarbs" disabled/>
+                                <span class="form-label unit">g</span>
+                            </label>
+                        </div>
+                        <div class="small-12 grid-content">
+                            <label>
+                                Fat
+                                <span class="inline-label">
+                                <input type="text" ng-model="broFat" disabled/>
+                                <span class="form-label unit">g</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
     <script type="text/template" id="goal-select-template">
         <h3 class="header">First, let's select your goals for each training block below.</h3>
         <h5 class="subheader header">Tip: <kbd>Click</kbd> on the block you want to set a goal for.</h5>
@@ -207,7 +309,6 @@
                 <li class="price">
                     <%=goal%>
                 </li>
-
                 <li class="bullet-item">
                     Intensity: <span class="intensity capitalize label"><%=intensity%></span>
                 </li>
@@ -226,7 +327,6 @@
             </ul>
         </div>
     </script>
-
     <script type="text/template" id="exercise-selection-template">
         <div class="row">
             <div class="large-12 columns exercise-add-section">
@@ -234,11 +334,11 @@
             </div>
         </div>
     </script>
-
-    <script type="text/template" id="exercise-list-item-template">          
-         <a><%=name%></a>
+    <script type="text/template" id="exercise-list-item-template">
+        <a>
+            <%=name%>
+        </a>
     </script>
-
     <script type="text/template" id="exercise-template">
         <div class="panel callout radius">
             <ul>
@@ -251,7 +351,6 @@
             </ul>
         </div>
     </script>
-
     <script type="text/template" id="day-workout-template">
         <div class="panel">
             <ul class="pricing-table">
@@ -274,14 +373,12 @@
                                 <%=rest%>
                                     <br/>
                 </li>
-
                 <li class="exercise bullet-item"></li>
                 <li>
                     <input class="search" type="text" placeholder="+ Add Exercise" />
                     <div class="exercise-list"></div>
                 </li>
             </ul>
-
         </div>
     </script>
     <script type="text/template" id="routine-template">
@@ -300,7 +397,6 @@
         <h3>Week <%=id%></h3>
         <div class="days"></div>
     </script>
-
     <script type="text/template" id="block-display-template">
         <div class="weeks"></div>
     </script>
@@ -315,7 +411,6 @@
             <h1 class="subheader">Sorry, but the requested page does not exist :(</h1>
         </div>
     </script>
-
     <!-- Models -->
     <script src="js/models/block.js"></script>
     <script src="js/models/week.js"></script>
@@ -339,7 +434,7 @@
     <script src="js/views/exercise.js"></script>
     <script src="js/views/exercises.js"></script>
     <script src="js/views/exerciseListItem.js"></script>
-        <script src="js/views/selectedExerciseListItem.js"></script>
+    <script src="js/views/selectedExerciseListItem.js"></script>
     <script src="js/views/fetchingData.js"></script>
     <script src="js/views/error.js"></script>
     <script src="js/views/app.js"></script>

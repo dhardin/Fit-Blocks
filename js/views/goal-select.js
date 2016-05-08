@@ -8,7 +8,8 @@ app.GoalSelectView = Backbone.View.extend({
     },
 
     initialize: function(options) {
-
+        Backbone.pubSub.on('select-block', this.selectBlock, this);
+        this.childViews = [];
     },
 
     render: function() {
@@ -30,11 +31,10 @@ app.GoalSelectView = Backbone.View.extend({
         //initialize events that occur in modal
         (function(that) {
             that.$goal_modal.find('.goal-select-btn').on('click', function(e) {
-                that.selectGoal(e, that);
+                that.selectGoal(e);
             });
         })(this);
 
-        Backbone.pubSub.on('select-block', this.selectBlock, this);
 
         this.blocksView = new app.BlocksView({
             el: this.$blocks[0],
@@ -44,9 +44,24 @@ app.GoalSelectView = Backbone.View.extend({
             hideCompleted: true,
             routable: false
         });
-        
+
+        this.childViews.push(this.blocksView);
+
         this.blocksView.render();
         return this;
+    },
+
+    onClose: function() {
+        _.each(this.childViews, function(childView) {
+            childView.remove();
+            childView.unbind();
+            if (childView.onClose) {
+                childView.onClose();
+            }
+        });
+
+        Backbone.pubSub.off('select-block');
+        this.$goal_modal.find('.goal-select-btn').off('click');
     },
 
     selectNumTrainingDays: function(e) {
@@ -55,9 +70,9 @@ app.GoalSelectView = Backbone.View.extend({
         this.renderTrainingDays();
     },
 
-    selectGoal: function(e, that) {
-        that.goal = $(e.currentTarget).attr('data-goal');
-        that.$goal_modal.foundation('reveal', 'close');
+    selectGoal: function(e) {
+        this.goal = $(e.currentTarget).attr('data-goal');
+        this.$goal_modal.foundation('reveal', 'close');
         Backbone.pubSub.trigger('set-goal', this.goal);
     },
 
@@ -68,10 +83,10 @@ app.GoalSelectView = Backbone.View.extend({
     addBlock: function(e) {
         e.stopPropagation();
         var block = new app.Block({
-                editable: true,
-                routable: false,
-                id: app.BlockCollection.length + 1
-            });
+            editable: true,
+            routable: false,
+            id: app.BlockCollection.length + 1
+        });
         app.BlockCollection.add(block);
     }
 });

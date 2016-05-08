@@ -6,7 +6,7 @@ app.RoutineView = Backbone.View.extend({
     events: {},
 
     initialize: function(options) {
-
+        this.childViews = [];
     },
 
     render: function() {
@@ -22,9 +22,19 @@ app.RoutineView = Backbone.View.extend({
             routable: true
         });
 
+        this.childViews.push(this.blocksView);
         //append views to elements
         this.blocksView.render();
         return this;
+    },
+     onClose: function() {
+        _.each(this.childViews, function(childView) {
+            childView.remove();
+            childView.unbind();
+            if (childView.onClose) {
+                childView.onClose();
+            }
+        });
     }
 
 });

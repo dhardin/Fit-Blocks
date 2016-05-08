@@ -13,12 +13,11 @@ app.ExercisesView = Backbone.View.extend({
         Backbone.pubSub.on('search', this.search, this);
         Backbone.pubSub.on('add-exercise', this.onAddExercise, this);
         this.itemView = options.itemView || false;
-        this.isSearchable = options.isSearchable || false;
+        this.show = options.show || false;
+        this.routable = options.routable || false;
 
         this.collection.on('reset add remove', function() {
-            this.render({
-                render: true
-            });
+            this.render();
         }, this);
     },
 
@@ -28,7 +27,7 @@ app.ExercisesView = Backbone.View.extend({
         var collection = options.collection || this.collection;
         this.$exercises = this.$('.exercises');
 
-        if (options.filtered && options.searchVal || options.render) {
+        if (options.filtered && options.searchVal || options.render || this.show) {
             collection.each(function(item) {
                 this.renderItem(item);
             }, this);
@@ -47,7 +46,7 @@ app.ExercisesView = Backbone.View.extend({
     },
 
     onAddExercise: function () {
-        if (this.isSearchable){
+        if (!this.show){
             this.render();
         }
     },
